@@ -30,11 +30,4 @@ El sistema está compuesto por 7 componentes encapsulados en contenedores Docker
 * Docker Compose `>= 2.0`
 * Java JDK `17` (opcional para desarrollo local)
 
----
 
-## Guía de Instalación y Ejecución
-
-1. **Clonar el repositorio:**
-   ```bash
-   git clone [https://github.com/empresa/voy-y-vuelvo.git](https://github.com/empresa/voy-y-vuelvo.git)
-   cd voy-y-vuelvo
