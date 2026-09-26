@@ -13,14 +13,17 @@
 6. [Requisitos funcionales y no funcionales](#6-requisitos-funcionales-y-no-funcionales)
 7. [Casos de uso](#7-casos-de-uso)
 8. [Historias de usuario](#8-historias-de-usuario)
-9. [Mapa de navegación](#9-mapa-de-navegación)
-10. [Roles y permisos](#10-roles-y-permisos)
-11. [Reglas de validación de formularios](#11-reglas-de-validación-de-formularios)
-12. [Guía de estilo](#12-guía-de-estilo)
-13. [Estructura de carpetas del proyecto](#13-estructura-de-carpetas-del-proyecto)
-14. [Convención de Git y commits](#14-convención-de-git-y-commits)
-15. [Reparto de tareas del equipo](#15-reparto-de-tareas-del-equipo)
-16. [Cómo ejecutar el proyecto](#16-cómo-ejecutar-el-proyecto)
+9. [Plan de pruebas](#9-plan-de-pruebas)
+10. [Manual de usuario](#10-manual-de-usuario)
+11. [Diagrama de flujo de validación](#11-diagrama-de-flujo-de-validación)
+12. [Mapa de navegación](#12-mapa-de-navegación)
+13. [Roles y permisos](#13-roles-y-permisos)
+14. [Reglas de validación de formularios](#14-reglas-de-validación-de-formularios)
+15. [Guía de estilo](#15-guía-de-estilo)
+16. [Estructura de carpetas del proyecto](#16-estructura-de-carpetas-del-proyecto)
+17. [Convención de Git y commits](#17-convención-de-git-y-commits)
+18. [Reparto de tareas del equipo](#18-reparto-de-tareas-del-equipo)
+19. [Cómo ejecutar el proyecto](#19-cómo-ejecutar-el-proyecto)
 
 ---
 
@@ -316,7 +319,105 @@ graph LR
 - Dado que asigno el tipo "Vendedor" a un usuario, cuando este inicia sesión, entonces solo ve productos y órdenes en modo lectura.
 *Referencia: R.20*
 
-## 9. Mapa de navegación
+## 9. Plan de pruebas
+
+Casos de prueba manuales para verificar el comportamiento de las validaciones JavaScript en tiempo real. "Resultado esperado: Error" significa que el formulario debe bloquear el envío y mostrar un mensaje específico en el campo correspondiente.
+
+### Formulario de inicio de sesión
+
+| ID | Escenario / dato de entrada | Resultado esperado |
+|---|---|---|
+| CP-01 | Correo vacío | Error: "El correo es obligatorio" |
+| CP-02 | Correo `usuario@hotmail.com` (dominio no permitido) | Error: dominio no válido |
+| CP-03 | Correo válido + contraseña `abc` (3 caracteres) | Error: contraseña debe tener entre 4 y 10 caracteres |
+| CP-04 | Correo válido + contraseña de 11 caracteres | Error: contraseña excede el máximo |
+| CP-05 | Correo `alumno@duoc.cl` + contraseña `1234` | Éxito: inicia sesión |
+
+### Formulario de registro de usuario
+
+| ID | Escenario / dato de entrada | Resultado esperado |
+|---|---|---|
+| CP-06 | RUN `19.011.022-K` (con puntos y guion) | Error: formato de RUN inválido |
+| CP-07 | RUN de 6 caracteres | Error: RUN fuera de rango (7 a 9) |
+| CP-08 | Nombre vacío | Error: "El nombre es obligatorio" |
+| CP-09 | Correo `test@yahoo.com` (dominio no permitido) | Error: dominio no válido |
+| CP-10 | Dirección vacía | Error: "La dirección es obligatoria" |
+| CP-11 | Todos los campos válidos (RUN `19011022K`, resto correcto) | Éxito: cuenta creada |
+
+### Formulario de contacto
+
+| ID | Escenario / dato de entrada | Resultado esperado |
+|---|---|---|
+| CP-12 | Nombre de 120 caracteres | Error: excede el máximo de 100 |
+| CP-13 | Comentario vacío | Error: "El comentario es obligatorio" |
+| CP-14 | Nombre, correo y comentario válidos | Éxito: mensaje enviado |
+
+### Formulario de producto (administrador)
+
+| ID | Escenario / dato de entrada | Resultado esperado |
+|---|---|---|
+| CP-15 | Código de 2 caracteres | Error: mínimo 3 caracteres |
+| CP-16 | Precio `-500` | Error: el precio no puede ser negativo |
+| CP-17 | Stock `10.5` (decimal) | Error: el stock debe ser un número entero |
+| CP-18 | Código, nombre, precio y stock válidos | Éxito: producto guardado |
+
+### Carrito de compras
+
+| ID | Escenario / dato de entrada | Resultado esperado |
+|---|---|---|
+| CP-19 | Intentar añadir un producto con stock 0 | El botón "Añadir al carrito" debe estar deshabilitado o mostrar aviso de sin stock |
+| CP-20 | Añadir productos al carrito y recargar la página | El carrito conserva los productos (persistencia en `localStorage`) |
+
+## 10. Manual de usuario
+
+### Como cliente
+
+1. **Ingresar al sitio:** abre `index.html` para ver la página principal con el equipamiento destacado.
+2. **Crear una cuenta:** haz clic en "Registrar usuario" en el menú, completa tus datos (RUN, nombre, apellidos, correo, contraseña, región/comuna, dirección) y envía el formulario.
+3. **Iniciar sesión:** haz clic en "Iniciar sesión" e ingresa tu correo y contraseña.
+4. **Explorar el catálogo:** entra a "Productos" y usa el filtro de dificultad (Fácil, Media, Alta) para encontrar el equipamiento adecuado a tu ruta.
+5. **Ver el detalle de un producto:** haz clic sobre cualquier producto para ver su descripción completa, precio y stock disponible.
+6. **Añadir al carrito:** desde el listado o el detalle, indica la cantidad deseada y presiona "Añadir al carrito".
+7. **Revisar y pagar:** abre el ícono del carrito, ajusta cantidades o elimina productos, ingresa un cupón de descuento si tienes uno, y presiona "Pagar".
+8. **Leer el blog:** entra a "Blogs" para ver artículos y datos curiosos sobre rutas de trekking; haz clic en uno para leerlo completo.
+9. **Contactar a la tienda:** entra a "Contacto", completa el formulario con tu nombre, correo y comentario, y envíalo.
+
+### Como administrador
+
+1. **Iniciar sesión** con una cuenta de tipo Administrador.
+2. **Acceder al panel administrador**, donde verás un menú vertical con las secciones de gestión.
+3. **Gestionar productos:** en la sección "Producto", puedes ver el listado completo, crear un producto nuevo o editar uno existente (código, nombre, descripción, precio, stock, stock crítico, categoría e imagen).
+4. **Gestionar usuarios:** en la sección "Usuario", puedes ver el listado, crear un usuario nuevo o editar uno existente, incluyendo asignar su tipo de perfil (Administrador, Vendedor o Cliente).
+
+> Un usuario con rol **Vendedor** que inicia sesión solo verá el listado y detalle de productos y órdenes, sin acceso a las demás funciones administrativas.
+
+## 11. Diagrama de flujo de validación
+
+Ejemplo del flujo de validación en tiempo real para el formulario de **registro de usuario**:
+
+```mermaid
+flowchart TD
+    A[Usuario envía formulario de registro] --> B{RUN valido? 7-9 caracteres, sin puntos ni guion}
+    B -- No --> B1[Mostrar error en campo RUN]
+    B -- Si --> C{Nombre no vacio y maximo 50 caracteres?}
+    C -- No --> C1[Mostrar error en campo Nombre]
+    C -- Si --> D{Apellidos no vacio y maximo 100 caracteres?}
+    D -- No --> D1[Mostrar error en campo Apellidos]
+    D -- Si --> E{Correo con dominio permitido y maximo 100 caracteres?}
+    E -- No --> E1[Mostrar error en campo Correo]
+    E -- Si --> F{Direccion no vacia y maximo 300 caracteres?}
+    F -- No --> F1[Mostrar error en campo Direccion]
+    F -- Si --> G[Crear cuenta de usuario]
+    B1 --> A
+    C1 --> A
+    D1 --> A
+    E1 --> A
+    F1 --> A
+```
+
+La misma lógica (validar campo por campo, bloquear el envío y mostrar un mensaje específico apenas falla una condición) se replica para los formularios de inicio de sesión, contacto y producto, usando las reglas descritas en la sección 14.
+
+## 12. Mapa de navegación
 
 ### Tienda (pública)
 
@@ -345,7 +446,7 @@ Home (admin)
     └── Mostrar/listado de usuarios
 ```
 
-## 10. Roles y permisos
+## 13. Roles y permisos
 
 | Rol | Acceso |
 |---|---|
@@ -353,7 +454,7 @@ Home (admin)
 | **Vendedor** | Puede visualizar el listado y detalle de productos, y el listado y detalle de órdenes. Ningún otro acceso administrativo debe estar visible para este rol. |
 | **Cliente** | Solo puede acceder a la tienda (parte pública). No tiene acceso al panel administrador. |
 
-## 11. Reglas de validación de formularios
+## 14. Reglas de validación de formularios
 
 ### Inicio de sesión
 
@@ -396,7 +497,7 @@ Home (admin)
 | Categoría (dificultad) | Requerido · select: Fácil, Media, Alta |
 | Imagen | Opcional |
 
-## 12. Guía de estilo
+## 15. Guía de estilo
 
 Paleta pensada para transmitir una identidad *outdoor* / naturaleza, manteniendo buen contraste y legibilidad.
 
@@ -424,7 +525,7 @@ Paleta pensada para transmitir una identidad *outdoor* / naturaleza, manteniendo
 - Diseño *mobile-first*: usar Flexbox/Grid y `@media` queries para adaptar el menú, el listado de productos y el carrito a pantallas pequeñas.
 - Botones de acción principal (Comprar, Registrar, Enviar, Guardar) siempre en el color de acción (`#D97706`) para mantener consistencia visual en todas las páginas.
 
-## 13. Estructura de carpetas del proyecto
+## 16. Estructura de carpetas del proyecto
 
 ```
 tienda-voyyvuelvo/
@@ -463,7 +564,7 @@ tienda-voyyvuelvo/
 └── README.md
 ```
 
-## 14. Convención de Git y commits
+## 17. Convención de Git y commits
 
 **Ramas:**
 
@@ -490,7 +591,7 @@ tienda-voyyvuelvo/
 - Cada integrante trabaja en su propia rama y hace *pull request* hacia `main`.
 - Antes de cada entrega, verificar que `main` contenga la última versión funcional.
 
-## 15. Reparto de tareas del equipo
+## 18. Reparto de tareas del equipo
 
 | Integrante | Módulo asignado | Páginas / archivos |
 |---|---|---|
@@ -500,7 +601,7 @@ tienda-voyyvuelvo/
 
 > Reemplazar "Integrante 1/2/3" por los nombres reales del equipo. El CSS general (`css/styles.css`) y la guía de estilo se recomiendan trabajarlos en conjunto al inicio, antes de repartir las páginas.
 
-## 16. Cómo ejecutar el proyecto
+## 19. Cómo ejecutar el proyecto
 
 Al ser un proyecto 100% frontend (HTML, CSS y JS puro, sin build tools), basta con:
 
