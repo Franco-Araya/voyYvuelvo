@@ -497,56 +497,47 @@ Home (admin)
 | Categoría (dificultad) | Requerido · select: Fácil, Media, Alta |
 | Imagen | Opcional |
 
-15. Guía de estilo
+## 15. Guía de estilo
+ 
+Basada en el prototipo visual de referencia "Voy & Vuelvo" (mockups de Inicio, Explorar rutas, Detalle, Iniciar sesión, Reserva y Pago). Se adopta su paleta de colores, tipografía y lenguaje visual (tarjetas, insignias, botones, indicador de pasos), aplicados a las páginas de la **tienda de equipamiento** definidas en el Anexo 1.
+ 
+### Paleta de colores
+ 
+| Uso | Color | Hex |
+|---|---|---|
+| Texto principal / marca | Azul grafito | `#1E2A38` |
+| Texto secundario | Gris medio | `#6B7280` |
+| Acción principal (botones CTA) | Ámbar dorado | `#F5A623` |
+| Fondo general | Gris muy claro | `#F7F8FA` |
+| Fondo de tarjetas | Blanco | `#FFFFFF` |
+| Bordes / líneas divisorias | Gris claro | `#E3E6EA` |
+| Dificultad Fácil | Verde | `#2F9E44` |
+| Dificultad Media | Naranjo | `#E8871E` |
+| Dificultad Alta | Rojo | `#D64545` |
+| Insignia destacada / familiar | Verde azulado (teal) | `#1E9E8C` |
+| Éxito / confirmación (fondo) | Verde menta | `#DCEEE1` |
+| Éxito / confirmación (ícono y texto) | Verde | `#2F9E44` |
+ 
+### Tipografía
+ 
+- Encabezados y marca: `"Poppins", sans-serif` (peso 600–700) — el mismo tipo de letra geométrica y bold del logotipo "Voy & Vuelvo" y los titulares del prototipo.
+- Texto de cuerpo / interfaz (labels, inputs, párrafos): `"Inter", sans-serif` (peso 400–500).
+- Ambas se cargan como fuente externa desde Google Fonts en el `<head>` de cada página.
+### Componentes visuales a replicar del prototipo
+ 
+- **Botones de acción principal:** fondo ámbar (`#F5A623`), texto oscuro, esquinas muy redondeadas (estilo píldora), usados en "Comprar", "Registrar", "Enviar", "Guardar" y toda acción principal.
+- **Tarjetas de producto:** fondo blanco, esquinas redondeadas (12–16px), sombra suave, imagen en la parte superior, insignia de categoría/dificultad como píldora sobre la imagen, ícono de favorito (corazón) en la esquina superior derecha.
+- **Insignias de dificultad:** píldora pequeña de color según nivel — verde (Fácil), naranjo (Media), rojo (Alta) — coherente con la categoría del producto (secciones 6 y 14).
+- **Menú de navegación:** fondo blanco, logo con ícono de montaña + nombre de marca en `Poppins` bold, enlaces en texto oscuro, elemento activo subrayado en ámbar.
+- **Formularios:** inputs con borde gris claro (`#E3E6EA`) y esquinas redondeadas; al enfocar, borde ámbar.
+- **Indicador de pasos** (si se usa en el flujo de carrito/pago): círculos numerados conectados por una línea, paso activo en ámbar, pasos pendientes en gris.
+**Lineamientos generales:**
+ 
+- Un único archivo `css/styles.css` para la tienda, y `css/admin.css` para el panel administrador (ambos externos, nunca estilos inline).
+- Diseño *mobile-first*: usar Flexbox/Grid y `@media` queries para adaptar el menú, el listado de productos y el carrito a pantallas pequeñas.
+- Botones de acción principal siempre en el color de acción (`#F5A623`) para mantener consistencia visual en todas las páginas.
 
-Basada en el prototipo visual de referencia "Voy & Vuelvo" (mockups de Inicio, Explorar rutas, Detalle, Iniciar sesión, Reserva y Pago). Se adopta su paleta de colores, tipografía y lenguaje visual (tarjetas, insignias, botones, indicador de pasos), aplicados a las páginas de la tienda de equipamiento definidas en el Anexo 1.
-
-Paleta de colores
-Uso	Color	Hex
-Texto principal / marca	Azul grafito	
-#1E2A38
-Texto secundario	Gris medio	
-#6B7280
-Acción principal (botones CTA)	Ámbar dorado	
-#F5A623
-Fondo general	Gris muy claro	
-#F7F8FA
-Fondo de tarjetas	Blanco	
-#FFFFFF
-Bordes / líneas divisorias	Gris claro	
-#E3E6EA
-Dificultad Fácil	Verde	
-#2F9E44
-Dificultad Media	Naranjo	
-#E8871E
-Dificultad Alta	Rojo	
-#D64545
-Insignia destacada / familiar	Verde azulado (teal)	
-#1E9E8C
-Éxito / confirmación (fondo)	Verde menta	
-#DCEEE1
-Éxito / confirmación (ícono y texto)	Verde	
-#2F9E44
-Tipografía
-Encabezados y marca: "Poppins", sans-serif (peso 600–700) — el mismo tipo de letra geométrica y bold del logotipo "Voy & Vuelvo" y los titulares del prototipo.
-Texto de cuerpo / interfaz (labels, inputs, párrafos): "Inter", sans-serif (peso 400–500).
-Ambas se cargan como fuente externa desde Google Fonts en el <head> de cada página.
-Componentes visuales a replicar del prototipo
-Botones de acción principal: fondo ámbar (
-#F5A623), texto oscuro, esquinas muy redondeadas (estilo píldora), usados en "Comprar", "Registrar", "Enviar", "Guardar" y toda acción principal.
-Tarjetas de producto: fondo blanco, esquinas redondeadas (12–16px), sombra suave, imagen en la parte superior, insignia de categoría/dificultad como píldora sobre la imagen, ícono de favorito (corazón) en la esquina superior derecha.
-Insignias de dificultad: píldora pequeña de color según nivel — verde (Fácil), naranjo (Media), rojo (Alta) — coherente con la categoría del producto (secciones 6 y 14).
-Menú de navegación: fondo blanco, logo con ícono de montaña + nombre de marca en Poppins bold, enlaces en texto oscuro, elemento activo subrayado en ámbar.
-Formularios: inputs con borde gris claro (
-#E3E6EA) y esquinas redondeadas; al enfocar, borde ámbar.
-Indicador de pasos (si se usa en el flujo de carrito/pago): círculos numerados conectados por una línea, paso activo en ámbar, pasos pendientes en gris.
-
-Lineamientos generales:
-
-Un único archivo css/styles.css para la tienda, y css/admin.css para el panel administrador (ambos externos, nunca estilos inline).
-Diseño mobile-first: usar Flexbox/Grid y @media queries para adaptar el menú, el listado de productos y el carrito a pantallas pequeñas.
-Botones de acción principal siempre en el color de acción (
-#F5A623) para mantener consistencia visual en todas las páginas.
+  
 ## 16. Estructura de carpetas del proyecto
 
 ```
