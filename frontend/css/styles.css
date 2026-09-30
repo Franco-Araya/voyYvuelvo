@@ -1204,6 +1204,11 @@ p {
         animation-iteration-count: 1 !important;
     }
 }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> upstream/main
 
 /* ============================================================
    13. CUENTAS, CONTACTO Y NOSOTROS
@@ -1352,3 +1357,7 @@ p {
     .team-card { align-items: stretch; flex-direction: column; }
     .team-card .btn { width: 100%; }
 }
+<<<<<<< HEAD
+>>>>>>> rama_micho
+=======
+>>>>>>> upstream/main
